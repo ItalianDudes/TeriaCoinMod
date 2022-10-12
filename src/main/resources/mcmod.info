@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "teriacoinmod",
+    "name": "TeriaCoinMod",
+    "description": "A private mod that simulate a cryptocurrency in Minecraft over chat commands.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "Hacker6329"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
