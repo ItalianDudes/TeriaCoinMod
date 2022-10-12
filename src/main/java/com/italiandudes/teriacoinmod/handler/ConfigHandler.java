@@ -24,12 +24,12 @@ public class ConfigHandler {
         config = new Configuration(file);
 
         String category;
-
         category = "Connection";
         config.addCustomCategoryComment(category, "Set the info needed to connect to the external server");
         serverAddress = config.getString("serverDomain", category, DEFAULT_DOMAIN, "Domain of the server");
         serverPort = config.getInt("serverPort", category, DEFAULT_PORT, 0, 65535, "Port of the server");
 
+        config.save();
     }
 
     public static void registerConfig(FMLPreInitializationEvent event){
