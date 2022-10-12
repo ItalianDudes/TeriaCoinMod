@@ -1,10 +1,10 @@
 package com.italiandudes.teriacoinmod.handler;
 
-import com.italiandudes.teriacoinmod.command.CommandDimensionTeleport;
+import com.italiandudes.teriacoinmod.command.*;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
-public class RegistryHandler {
+public final class RegistryHandler {
 
     /**
      * This is the first initialization event. Register tile entities here.
@@ -29,6 +29,10 @@ public class RegistryHandler {
     }
 
     public static void serverRegistries(FMLServerStartingEvent event){
-        event.registerServerCommand(new CommandDimensionTeleport());
+        event.registerServerCommand(new CommandTeriaRegister());
+        event.registerServerCommand(new CommandTeriaLogin());
+        event.registerServerCommand(new CommandTeriaLogout());
+        event.registerServerCommand(new CommandTeriaBalance());
+        event.registerServerCommand(new CommandTeriaSend());
     }
 }

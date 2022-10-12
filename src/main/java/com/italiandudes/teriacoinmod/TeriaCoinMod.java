@@ -1,5 +1,6 @@
 package com.italiandudes.teriacoinmod;
 
+import com.italianDudes.idl.common.Peer;
 import com.italiandudes.teriacoinmod.handler.RegistryHandler;
 import com.italiandudes.teriacoinmod.proxy.CommonProxy;
 import com.italiandudes.teriacoinmod.util.Defs;
@@ -11,12 +12,14 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.io.File;
+import java.io.IOException;
 
 @Mod(modid = Defs.MOD_ID, name = Defs.MOD_NAME, version = Defs.VERSION)
-public class TeriaCoinMod {
+public final class TeriaCoinMod {
 
     //Attributes
     public static File configs;
+    public static Peer serverConnection = null;
 
     /**
      * This is the instance of your mod as created by Forge. It will never be null.
@@ -42,5 +45,12 @@ public class TeriaCoinMod {
     @Mod.EventHandler
     public static void serverinit(FMLServerStartingEvent event) {
         RegistryHandler.serverRegistries(event);
+    }
+
+    public static void clearPeer(){
+        try{
+            serverConnection.getPeerSocket().close();
+        }catch (IOException ignored){}
+        serverConnection = null;
     }
 }

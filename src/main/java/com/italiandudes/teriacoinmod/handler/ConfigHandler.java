@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.io.File;
 
-public class ConfigHandler {
+public final class ConfigHandler {
 
     //Attributes
     public static Configuration config;
@@ -34,6 +34,7 @@ public class ConfigHandler {
 
     public static void registerConfig(FMLPreInitializationEvent event){
         TeriaCoinMod.configs = new File(event.getModConfigurationDirectory() + "/" + Defs.MOD_ID);
+        //noinspection ResultOfMethodCallIgnored
         TeriaCoinMod.configs.mkdirs();
         init(new File(TeriaCoinMod.configs.getPath(), Defs.MOD_ID+".cfg"));
     }
