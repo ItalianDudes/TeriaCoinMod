@@ -4,12 +4,12 @@ import com.italianDudes.idl.common.Peer;
 import com.italiandudes.teriacoinmod.handler.RegistryHandler;
 import com.italiandudes.teriacoinmod.proxy.CommonProxy;
 import com.italiandudes.teriacoinmod.util.Defs;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import java.io.File;
 import java.io.IOException;

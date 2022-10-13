@@ -34,5 +34,8 @@ public final class RegistryHandler {
         event.registerServerCommand(new CommandTeriaLogout());
         event.registerServerCommand(new CommandTeriaBalance());
         event.registerServerCommand(new CommandTeriaSend());
+        event.registerServerCommand(new CommandTeriaExchangeTC());
+        event.registerServerCommand(new CommandTeriaExchangeItem());
+        event.registerServerCommand(new CommandTeriaList());
     }
 }

@@ -4,6 +4,7 @@ import com.italianDudes.idl.common.Credential;
 import com.italianDudes.idl.common.Peer;
 import com.italianDudes.idl.common.Serializer;
 import com.italiandudes.teriacoinmod.TeriaCoinMod;
+import com.italiandudes.teriacoinmod.exception.socket.InvalidProtocolException;
 import com.italiandudes.teriacoinmod.handler.ConfigHandler;
 import com.italiandudes.teriacoinmod.util.Defs;
 import net.minecraft.command.CommandBase;
@@ -92,8 +93,7 @@ public final class CommandTeriaRegister extends CommandBase {
                     break;
 
                 default:
-                    try{serverConnection.close();}catch (Exception ignored){}
-                    throw new IOException();
+                    throw new InvalidProtocolException("Protocol not respected!");
             }
 
             serverConnection.close();

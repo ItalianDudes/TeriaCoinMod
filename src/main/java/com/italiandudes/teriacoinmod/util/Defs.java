@@ -37,6 +37,21 @@ public final class Defs {
             public static final int INVALID_TC_AMOUNT = -3;
         }
 
+        public static final String TERIA_EXCHANGE_TC = "EXCHANGE_TC";
+
+        public static final class TeriaExchangeTCCodes {
+            public static final int INSUFFICIENT_TC_AVAILABLE = -1;
+            public static final int ITEM_INDEX_NOT_FOUND = -2;
+        }
+
+        public static final String TERIA_EXCHANGE_ITEM = "EXCHANGE_ITEM";
+
+        public static final class TeriaExchangeItemCodes {
+            public static final int MISSING_REQUESTED_ITEM_AMOUT = -1;
+        }
+
+        public static final String TERIA_EXCHANGE_LIST = "EXCHANGE_LIST";
+
     }
 
 }
