@@ -21,7 +21,7 @@ public final class TeriaCoinMod {
 
     //Attributes
     public static File configs;
-    public static HashMap<EntityPlayerMP, Peer> serverConnections;
+    public static HashMap<EntityPlayerMP, Peer> serverConnections = new HashMap<>();
 
     /**
      * This is the instance of your mod as created by Forge. It will never be null.
