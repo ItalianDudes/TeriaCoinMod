@@ -13,6 +13,8 @@
     "credits": "",
     "logoFile": "",
     "screenshots": [],
-    "dependencies": []
+    "dependencies": [
+      "required-after:IDLMod[$version]"
+    ]
   }
 ]

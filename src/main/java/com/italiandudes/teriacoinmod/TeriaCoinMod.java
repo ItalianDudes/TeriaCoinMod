@@ -1,6 +1,6 @@
 package com.italiandudes.teriacoinmod;
 
-import com.italianDudes.idl.common.Peer;
+import com.italiandudes.teriacoinmod.common.Peer;
 import com.italiandudes.teriacoinmod.handler.RegistryHandler;
 import com.italiandudes.teriacoinmod.proxy.CommonProxy;
 import com.italiandudes.teriacoinmod.util.Defs;

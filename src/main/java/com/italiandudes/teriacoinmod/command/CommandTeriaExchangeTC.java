@@ -1,8 +1,8 @@
 package com.italiandudes.teriacoinmod.command;
 
-import com.italianDudes.idl.common.Serializer;
+import com.italiandudes.teriacoinmod.common.Serializer;
 import com.italiandudes.teriacoinmod.TeriaCoinMod;
-import com.italiandudes.teriacoinmod.exception.socket.InvalidProtocolException;
+import com.italiandudes.teriacoinmod.common.exceptions.IO.socket.InvalidProtocolException;
 import com.italiandudes.teriacoinmod.util.Defs;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;

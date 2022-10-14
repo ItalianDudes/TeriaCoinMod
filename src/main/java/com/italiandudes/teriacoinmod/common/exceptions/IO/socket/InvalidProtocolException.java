@@ -1,4 +1,4 @@
-package com.italiandudes.teriacoinmod.exception.socket;
+package com.italiandudes.teriacoinmod.common.exceptions.IO.socket;
 
 import java.io.IOException;
 

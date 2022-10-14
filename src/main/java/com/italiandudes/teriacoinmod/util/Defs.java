@@ -4,7 +4,7 @@ public final class Defs {
 
     public static final String MOD_ID = "teriacoinmod";
     public static final String MOD_NAME = "TeriaCoinMod";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "1.0R";
     public static final String CLIENT = "com.italiandudes.teriacoinmod.proxy.ClientProxy";
     public static final String COMMON = "com.italiandudes.teriacoinmod.proxy.CommonProxy";
 
@@ -53,5 +53,12 @@ public final class Defs {
         public static final String TERIA_EXCHANGE_LIST = "EXCHANGE_LIST";
 
     }
+
+    //PATHS
+    public static final String LOG_DIR = "logs/";
+    public static final String LOG_LATEST_FILE = LOG_DIR + "latest.log";
+
+    //General Data Communication
+    public static final int DEFAULT_CONNECTION_TIMEOUT = 60000; //Expressed in milliseconds
 
 }
