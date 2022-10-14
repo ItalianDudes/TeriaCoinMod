@@ -4,6 +4,7 @@ import com.italiandudes.teriacoinmod.common.Peer;
 import com.italiandudes.teriacoinmod.handler.RegistryHandler;
 import com.italiandudes.teriacoinmod.proxy.CommonProxy;
 import com.italiandudes.teriacoinmod.util.Defs;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -13,13 +14,14 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 @Mod(modid = Defs.MOD_ID, name = Defs.MOD_NAME, version = Defs.VERSION)
 public final class TeriaCoinMod {
 
     //Attributes
     public static File configs;
-    public static Peer serverConnection = null;
+    public static HashMap<EntityPlayerMP, Peer> serverConnections;
 
     /**
      * This is the instance of your mod as created by Forge. It will never be null.
@@ -47,10 +49,13 @@ public final class TeriaCoinMod {
         RegistryHandler.serverRegistries(event);
     }
 
-    public static void clearPeer(){
+    public static void clearPeer(EntityPlayerMP playerMP){
+        if(!serverConnections.containsKey(playerMP)){
+            return;
+        }
         try{
-            serverConnection.getPeerSocket().close();
+            serverConnections.get(playerMP).getPeerSocket().close();
         }catch (IOException ignored){}
-        serverConnection = null;
+        serverConnections.remove(playerMP);
     }
 }

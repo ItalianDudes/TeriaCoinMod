@@ -9,6 +9,7 @@ import com.italiandudes.teriacoinmod.handler.ConfigHandler;
 import com.italiandudes.teriacoinmod.util.Defs;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -49,7 +50,7 @@ public final class CommandTeriaRegister extends CommandBase {
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "Password mismatch!"));
         }
 
-        if(TeriaCoinMod.serverConnection != null){
+        if(TeriaCoinMod.serverConnections.containsKey((EntityPlayerMP) sender)){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "There is already an open connection with the server, disconnect first"));
             return;
         }

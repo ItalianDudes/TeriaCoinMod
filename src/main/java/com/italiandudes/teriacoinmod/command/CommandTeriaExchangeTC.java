@@ -10,6 +10,7 @@ import net.minecraft.command.CommandResultStats;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -44,7 +45,7 @@ public final class CommandTeriaExchangeTC extends CommandBase {
             return;
         }
 
-        if(TeriaCoinMod.serverConnection == null){
+        if(!TeriaCoinMod.serverConnections.containsKey((EntityPlayerMP) sender)){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "There isn't a connection with the server, you have to login first"));
             return;
         }
@@ -76,19 +77,19 @@ public final class CommandTeriaExchangeTC extends CommandBase {
 
         try {
 
-            Serializer.sendString(TeriaCoinMod.serverConnection, Defs.TeriaProtocols.TERIA_EXCHANGE_TC);
-            Serializer.sendInt(TeriaCoinMod.serverConnection, index);
-            Serializer.sendInt(TeriaCoinMod.serverConnection, amount);
+            Serializer.sendString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), Defs.TeriaProtocols.TERIA_EXCHANGE_TC);
+            Serializer.sendInt(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), index);
+            Serializer.sendInt(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), amount);
 
-            int result = Serializer.receiveInt(TeriaCoinMod.serverConnection);
+            int result = Serializer.receiveInt(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender));
 
             switch (result){
 
                 case Defs.TeriaProtocols.OK:
                     try {
                         EntityPlayer entityplayer = getPlayer(server, sender, sender.getName());
-                        String itemID = Serializer.receiveString(TeriaCoinMod.serverConnection);
-                        int obtainableAmount = Serializer.receiveInt(TeriaCoinMod.serverConnection);
+                        String itemID = Serializer.receiveString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender));
+                        int obtainableAmount = Serializer.receiveInt(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender));
                         Item item = getItemByText(sender, itemID);
                         ItemStack itemstack = new ItemStack(item, obtainableAmount, 0);
                         boolean flag = entityplayer.inventory.addItemStackToInventory(itemstack);
@@ -137,7 +138,7 @@ public final class CommandTeriaExchangeTC extends CommandBase {
 
         } catch (IOException e){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "An error has occurred while communicating with server"));
-            TeriaCoinMod.clearPeer();
+            TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
         }
 
     }

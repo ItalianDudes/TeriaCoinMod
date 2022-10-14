@@ -39,7 +39,7 @@ public final class CommandTeriaExchangeItem extends CommandBase {
             return;
         }
 
-        if(TeriaCoinMod.serverConnection == null){
+        if(!TeriaCoinMod.serverConnections.containsKey((EntityPlayerMP) sender)){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "There isn't a connection with the server, you have to login first"));
             return;
         }
@@ -71,21 +71,21 @@ public final class CommandTeriaExchangeItem extends CommandBase {
 
         try {
 
-            Serializer.sendString(TeriaCoinMod.serverConnection, Defs.TeriaProtocols.TERIA_EXCHANGE_ITEM);
-            Serializer.sendInt(TeriaCoinMod.serverConnection, index);
-            boolean itemExist = Serializer.receiveBoolean(TeriaCoinMod.serverConnection);
+            Serializer.sendString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), Defs.TeriaProtocols.TERIA_EXCHANGE_ITEM);
+            Serializer.sendInt(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), index);
+            boolean itemExist = Serializer.receiveBoolean(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender));
             if(!itemExist){
                 sender.sendMessage(new TextComponentString(TextFormatting.RED + "Item to TC Exchange blocked: Item Index not found in exchange items index list"));
                 return;
             }
-            String itemID = Serializer.receiveString(TeriaCoinMod.serverConnection);
+            String itemID = Serializer.receiveString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender));
 
             try {
                 Item item = getItemByText(sender, itemID);
                 EntityPlayerMP playerMP = getPlayer(server, sender, sender.getName());
                 if(!playerMP.inventory.hasItemStack(new ItemStack(item, amount))){
                     sender.sendMessage(new TextComponentString(TextFormatting.RED + "Item to TC Exchange blocked: player doesn't have the declared item amount"));
-                    Serializer.sendInt(TeriaCoinMod.serverConnection, Defs.TeriaProtocols.TeriaExchangeItemCodes.MISSING_REQUESTED_ITEM_AMOUT);
+                    Serializer.sendInt(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), Defs.TeriaProtocols.TeriaExchangeItemCodes.MISSING_REQUESTED_ITEM_AMOUT);
                     return;
                 }
                 playerMP.inventory.clearMatchingItems(item, 0, amount, null);
@@ -99,13 +99,13 @@ public final class CommandTeriaExchangeItem extends CommandBase {
                 sender.sendMessage(new TextComponentString(TextFormatting.RED + "An unknown error has occurred on item exchanging"));
                 return;
             }
-            Serializer.sendInt(TeriaCoinMod.serverConnection, Defs.TeriaProtocols.OK);
-            Serializer.sendInt(TeriaCoinMod.serverConnection, amount);
+            Serializer.sendInt(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), Defs.TeriaProtocols.OK);
+            Serializer.sendInt(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), amount);
             sender.sendMessage(new TextComponentString(TextFormatting.GREEN + "Exchange completed!"));
 
         } catch (IOException e){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "An error has occurred while communicating with server"));
-            TeriaCoinMod.clearPeer();
+            TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
         }
 
     }

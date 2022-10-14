@@ -9,6 +9,7 @@ import com.italiandudes.teriacoinmod.handler.ConfigHandler;
 import com.italiandudes.teriacoinmod.util.Defs;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -44,7 +45,7 @@ public final class CommandTeriaLogin extends CommandBase {
         String username = args[0];
         String password = args[1];
 
-        if(TeriaCoinMod.serverConnection != null){
+        if(TeriaCoinMod.serverConnections.containsKey((EntityPlayerMP) sender)){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "There is already an open connection with the server, disconnect first"));
             return;
         }
@@ -55,13 +56,13 @@ public final class CommandTeriaLogin extends CommandBase {
 
             Credential userCredential = new Credential(username, password);
 
-            TeriaCoinMod.serverConnection = new Peer(serverConnection, userCredential);
+            TeriaCoinMod.serverConnections.put((EntityPlayerMP) sender, new Peer(serverConnection, userCredential));
 
-            Serializer.sendString(TeriaCoinMod.serverConnection, Defs.TeriaProtocols.TERIA_LOGIN);
-            Serializer.sendString(TeriaCoinMod.serverConnection, userCredential.getUsername());
-            Serializer.sendString(TeriaCoinMod.serverConnection, userCredential.getPassword());
+            Serializer.sendString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), Defs.TeriaProtocols.TERIA_LOGIN);
+            Serializer.sendString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), userCredential.getUsername());
+            Serializer.sendString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), userCredential.getPassword());
 
-            int result = Serializer.receiveInt(TeriaCoinMod.serverConnection);
+            int result = Serializer.receiveInt(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender));
 
             switch (result){
 
@@ -71,7 +72,7 @@ public final class CommandTeriaLogin extends CommandBase {
 
                 case Defs.TeriaProtocols.TeriaLoginCodes.INVALID_CREDENTIALS:
                     sender.sendMessage(new TextComponentString(TextFormatting.RED + "Login failed: invalid combination username/password"));
-                    TeriaCoinMod.clearPeer();
+                    TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
                     break;
 
                 default:
@@ -80,10 +81,10 @@ public final class CommandTeriaLogin extends CommandBase {
 
         } catch (UnknownHostException e) {
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "Server \""+ConfigHandler.serverAddress+":"+ConfigHandler.serverPort+"\" unreachable"));
-            TeriaCoinMod.clearPeer();
+            TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
         } catch (IOException e){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "An error has occurred while communicating with server"));
-            TeriaCoinMod.clearPeer();
+            TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
         }
 
     }

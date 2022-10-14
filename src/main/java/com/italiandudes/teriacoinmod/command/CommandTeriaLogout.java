@@ -5,6 +5,7 @@ import com.italiandudes.teriacoinmod.TeriaCoinMod;
 import com.italiandudes.teriacoinmod.util.Defs;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -35,20 +36,20 @@ public final class CommandTeriaLogout extends CommandBase {
             return;
         }
 
-        if(TeriaCoinMod.serverConnection == null){
+        if(!TeriaCoinMod.serverConnections.containsKey((EntityPlayerMP) sender)){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "There isn't a connection with the server, you have to login first"));
             return;
         }
 
         try {
 
-            Serializer.sendString(TeriaCoinMod.serverConnection, Defs.TeriaProtocols.TERIA_LOGOUT);
-            TeriaCoinMod.clearPeer();
+            Serializer.sendString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), Defs.TeriaProtocols.TERIA_LOGOUT);
+            TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
             sender.sendMessage(new TextComponentString(TextFormatting.GREEN + "Logout completed"));
 
         } catch (IOException e){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "An error has occurred while communicating with server"));
-            TeriaCoinMod.clearPeer();
+            TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
         }
 
     }

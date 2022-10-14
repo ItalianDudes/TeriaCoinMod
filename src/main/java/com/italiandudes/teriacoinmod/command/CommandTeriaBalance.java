@@ -5,6 +5,7 @@ import com.italiandudes.teriacoinmod.common.Serializer;
 import com.italiandudes.teriacoinmod.util.Defs;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
@@ -35,16 +36,16 @@ public final class CommandTeriaBalance extends CommandBase {
             return;
         }
 
-        if(TeriaCoinMod.serverConnection == null){
+        if(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender) == null){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "There isn't a connection with the server, you have to login first"));
             return;
         }
 
         try {
 
-            Serializer.sendString(TeriaCoinMod.serverConnection, Defs.TeriaProtocols.TERIA_BALANCE);
+            Serializer.sendString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), Defs.TeriaProtocols.TERIA_BALANCE);
 
-            double balance = Serializer.receiveDouble(TeriaCoinMod.serverConnection);
+            double balance = Serializer.receiveDouble(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender));
 
             if(balance == 0){
                 sender.sendMessage(new TextComponentString(TextFormatting.RED +"Account Balance: "+ balance + "TC"));
@@ -54,7 +55,7 @@ public final class CommandTeriaBalance extends CommandBase {
 
         } catch (IOException e){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "An error has occurred while communicating with server"));
-            TeriaCoinMod.clearPeer();
+            TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
         }
 
     }
