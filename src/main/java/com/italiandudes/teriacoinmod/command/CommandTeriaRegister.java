@@ -1,9 +1,9 @@
 package com.italiandudes.teriacoinmod.command;
 
+import com.italiandudes.teriacoinmod.TeriaCoinMod;
 import com.italiandudes.teriacoinmod.common.Credential;
 import com.italiandudes.teriacoinmod.common.Peer;
 import com.italiandudes.teriacoinmod.common.Serializer;
-import com.italiandudes.teriacoinmod.TeriaCoinMod;
 import com.italiandudes.teriacoinmod.common.exceptions.IO.socket.InvalidProtocolException;
 import com.italiandudes.teriacoinmod.handler.ConfigHandler;
 import com.italiandudes.teriacoinmod.util.Defs;
