@@ -29,12 +29,7 @@ public final class CommandTeriaBalance extends CommandBase {
         return true;
     }
     @Override
-    public void execute(@NotNull MinecraftServer server, @NotNull ICommandSender sender, String[] args) {
-
-        if(args.length != 0){
-            sender.sendMessage(new TextComponentString(TextFormatting.RED + "Invalid command structure!"));
-            return;
-        }
+    public void execute(@NotNull MinecraftServer server, @NotNull ICommandSender sender, String @NotNull [] args) {
 
         if(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender) == null){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "There isn't a connection with the server, you have to login first"));

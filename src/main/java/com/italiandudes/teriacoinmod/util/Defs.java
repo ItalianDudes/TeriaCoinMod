@@ -4,7 +4,7 @@ public final class Defs {
 
     public static final String MOD_ID = "teriacoinmod";
     public static final String MOD_NAME = "TeriaCoinMod";
-    public static final String VERSION = "1.3R";
+    public static final String VERSION = "1.4R";
     public static final String CLIENT = "com.italiandudes.teriacoinmod.proxy.ClientProxy";
     public static final String COMMON = "com.italiandudes.teriacoinmod.proxy.CommonProxy";
 

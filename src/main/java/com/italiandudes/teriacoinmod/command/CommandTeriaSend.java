@@ -31,6 +31,11 @@ public final class CommandTeriaSend extends CommandBase {
     @Override
     public void execute(@NotNull MinecraftServer server, @NotNull ICommandSender sender, String[] args) {
 
+        if (args.length == 0){
+            sender.sendMessage(new TextComponentString(TextFormatting.RED + getUsage(sender)));
+            return;
+        }
+
         if(args.length != 2){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "Invalid command structure!"));
             return;

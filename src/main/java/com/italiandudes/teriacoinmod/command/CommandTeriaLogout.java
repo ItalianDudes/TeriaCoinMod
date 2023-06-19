@@ -31,11 +31,6 @@ public final class CommandTeriaLogout extends CommandBase {
     @Override
     public void execute(@NotNull MinecraftServer server, @NotNull ICommandSender sender, String[] args) {
 
-        if(args.length != 0){
-            sender.sendMessage(new TextComponentString(TextFormatting.RED + "Invalid command structure!"));
-            return;
-        }
-
         if(!TeriaCoinMod.serverConnections.containsKey((EntityPlayerMP) sender)){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "There isn't a connection with the server, you have to login first"));
             return;

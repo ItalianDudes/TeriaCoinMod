@@ -37,6 +37,11 @@ public final class CommandTeriaRegister extends CommandBase {
     @Override
     public void execute(@NotNull MinecraftServer server, @NotNull ICommandSender sender, String[] args) {
 
+        if (args.length == 0){
+            sender.sendMessage(new TextComponentString(TextFormatting.RED + getUsage(sender)));
+            return;
+        }
+
         if(args.length != 3){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "Invalid command structure!"));
             return;
@@ -48,6 +53,7 @@ public final class CommandTeriaRegister extends CommandBase {
 
         if(!password.equals(confirmPassword)){
             sender.sendMessage(new TextComponentString(TextFormatting.RED + "Password mismatch!"));
+            return;
         }
 
         if(TeriaCoinMod.serverConnections.containsKey((EntityPlayerMP) sender)){
@@ -96,7 +102,6 @@ public final class CommandTeriaRegister extends CommandBase {
 
                 case Defs.TeriaProtocols.OUTDATED:
                     sender.sendMessage(new TextComponentString(TextFormatting.RED + "Registration failed: the mod is outdated!"));
-                    TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
                     break;
 
                 default:

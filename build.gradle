@@ -4,7 +4,7 @@ plugins {
 
 
 group = 'com.italianDudes'
-version = '1.3R'
+version = '1.4R'
 
 java {
     archivesBaseName = 'TeriaCoinMod'
