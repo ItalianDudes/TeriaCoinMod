@@ -68,6 +68,7 @@ public final class CommandTeriaRegister extends CommandBase {
             Serializer.sendString(authConnection, Defs.TeriaProtocols.TERIA_REGISTER);
             Serializer.sendString(authConnection, userCredential.getUsername());
             Serializer.sendString(authConnection, userCredential.getPassword());
+            Serializer.sendString(authConnection, Defs.VERSION);
 
             int result = Serializer.receiveInt(authConnection);
 
@@ -91,6 +92,11 @@ public final class CommandTeriaRegister extends CommandBase {
 
                 case Defs.TeriaProtocols.TeriaRegisterCodes.INVALID_PASSWORD:
                     sender.sendMessage(new TextComponentString(TextFormatting.RED + "Registration rejected: invalid password"));
+                    break;
+
+                case Defs.TeriaProtocols.OUTDATED:
+                    sender.sendMessage(new TextComponentString(TextFormatting.RED + "Registration failed: the mod is outdated!"));
+                    TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
                     break;
 
                 default:

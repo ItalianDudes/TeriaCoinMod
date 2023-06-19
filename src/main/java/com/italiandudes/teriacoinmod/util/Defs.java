@@ -4,7 +4,7 @@ public final class Defs {
 
     public static final String MOD_ID = "teriacoinmod";
     public static final String MOD_NAME = "TeriaCoinMod";
-    public static final String VERSION = "1.2R";
+    public static final String VERSION = "1.3R";
     public static final String CLIENT = "com.italiandudes.teriacoinmod.proxy.ClientProxy";
     public static final String COMMON = "com.italiandudes.teriacoinmod.proxy.CommonProxy";
 
@@ -13,6 +13,7 @@ public final class Defs {
         public static final int OK = 0;
         @SuppressWarnings("unused")
         public static final int INVALID_PROTOCOL = -100;
+        public static final int OUTDATED = -500;
         public static final String TERIA_REGISTER = "REGISTER";
 
         public static final class TeriaRegisterCodes {

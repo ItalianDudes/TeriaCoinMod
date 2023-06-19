@@ -88,7 +88,7 @@ public final class CommandTeriaExchangeItem extends CommandBase {
                     Serializer.sendInt(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), Defs.TeriaProtocols.TeriaExchangeItemCodes.MISSING_REQUESTED_ITEM_AMOUT);
                     return;
                 }
-                playerMP.inventory.clearMatchingItems(item, 0, amount, null);
+                amount = playerMP.inventory.clearMatchingItems(item, 0, amount, null);
                 playerMP.inventoryContainer.detectAndSendChanges();
 
                 if(!playerMP.capabilities.isCreativeMode){

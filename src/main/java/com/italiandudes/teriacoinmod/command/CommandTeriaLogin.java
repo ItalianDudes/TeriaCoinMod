@@ -61,6 +61,7 @@ public final class CommandTeriaLogin extends CommandBase {
             Serializer.sendString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), Defs.TeriaProtocols.TERIA_LOGIN);
             Serializer.sendString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), userCredential.getUsername());
             Serializer.sendString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), userCredential.getPassword());
+            Serializer.sendString(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender), Defs.VERSION);
 
             int result = Serializer.receiveInt(TeriaCoinMod.serverConnections.get((EntityPlayerMP) sender));
 
@@ -72,6 +73,11 @@ public final class CommandTeriaLogin extends CommandBase {
 
                 case Defs.TeriaProtocols.TeriaLoginCodes.INVALID_CREDENTIALS:
                     sender.sendMessage(new TextComponentString(TextFormatting.RED + "Login failed: invalid combination username/password"));
+                    TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
+                    break;
+
+                case Defs.TeriaProtocols.OUTDATED:
+                    sender.sendMessage(new TextComponentString(TextFormatting.RED+ "Login failed: the mod is outdated!"));
                     TeriaCoinMod.clearPeer((EntityPlayerMP) sender);
                     break;
 
